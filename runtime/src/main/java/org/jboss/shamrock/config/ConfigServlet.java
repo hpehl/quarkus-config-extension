@@ -46,8 +46,7 @@ import org.eclipse.microprofile.config.Config;
  *       "ordinal": 400,
  *       "properties": {
  *         "file.encoding": "UTF-8",
- *         "file.separator": "/",
- *         ...
+ *         "file.separator": "/"
  *       }
  *     },
  *     {
@@ -55,8 +54,7 @@ import org.eclipse.microprofile.config.Config;
  *       "ordinal": 300,
  *       "properties": {
  *         "EDITOR": "vim",
- *         "LC_ALL": "en_US.UTF-8",
- *         ...
+ *         "LC_ALL": "en_US.UTF-8"
  *       }
  *     },
  *     {
@@ -64,8 +62,7 @@ import org.eclipse.microprofile.config.Config;
  *       "ordinal": 100,
  *       "properties": {
  *         "greeting.message": "hello",
- *         "greeting.name": "shamrock",
- *         ...
+ *         "greeting.name": "shamrock"
  *       }
  *     }
  *   ]

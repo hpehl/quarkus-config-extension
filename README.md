@@ -11,8 +11,7 @@ A typical output might look like:
       "ordinal": 400,
       "properties": {
         "file.encoding": "UTF-8",
-        "file.separator": "/",
-        ...
+        "file.separator": "/"
       }
     },
     {
@@ -20,8 +19,7 @@ A typical output might look like:
       "ordinal": 300,
       "properties": {
         "EDITOR": "vim",
-        "LC_ALL": "en_US.UTF-8",
-        ...
+        "LC_ALL": "en_US.UTF-8"
       }
     },
     {
@@ -29,8 +27,7 @@ A typical output might look like:
       "ordinal": 100,
       "properties": {
         "greeting.message": "hello",
-        "greeting.name": "shamrock",
-        ...
+        "greeting.name": "shamrock"
       }
     }
   ]
