@@ -32,7 +32,6 @@ import org.jboss.shamrock.undertow.ServletBuildItem;
  */
 class ConfigProcessor {
 
-    /** The configuration for health checking. */
     Config config;
 
     @ConfigGroup
