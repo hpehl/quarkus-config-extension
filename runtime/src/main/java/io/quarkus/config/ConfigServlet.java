@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.shamrock.config;
+package io.quarkus.config;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -37,7 +37,10 @@ import org.eclipse.microprofile.config.Config;
  * Servlet which returns all config sources and properties as JSON. The config sources are sorted descending by ordinal,
  * the properties by name. If no config is defined an empty JSON object is returned.
  *
- * <p>A typical output might look like:</p>
+ * <p>
+ * A typical output might look like:
+ * </p>
+ *
  * <pre>
  * {
  *   "sources": [
@@ -62,7 +65,7 @@ import org.eclipse.microprofile.config.Config;
  *       "ordinal": 100,
  *       "properties": {
  *         "greeting.message": "hello",
- *         "greeting.name": "shamrock"
+ *         "greeting.name": "quarkus"
  *       }
  *     }
  *   ]
@@ -76,7 +79,8 @@ public class ConfigServlet extends HttpServlet {
 
     private static final Map<String, ?> JSON_CONFIG = Collections.singletonMap(JsonGenerator.PRETTY_PRINTING, true);
 
-    @Inject Config config;
+    @Inject
+    Config config;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

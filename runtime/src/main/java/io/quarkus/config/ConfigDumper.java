@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.shamrock.config;
+package io.quarkus.config;
 
 import java.util.Set;
 import java.util.SortedSet;
@@ -31,7 +31,10 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
  * Turns a {@link Config} into a JSON object with all config sources and properties as JSON. The config sources are
  * sorted descending by ordinal, the properties by name. If no config is defined an empty JSON object is returned.
  *
- * <p>A typical output might look like:</p>
+ * <p>
+ * A typical output might look like:
+ * </p>
+ *
  * <pre>
  * {
  *   "sources": [

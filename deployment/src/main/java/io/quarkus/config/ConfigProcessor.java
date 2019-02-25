@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.shamrock.config;
+package io.quarkus.config;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.jboss.shamrock.arc.deployment.AdditionalBeanBuildItem;
-import org.jboss.shamrock.deployment.annotations.BuildStep;
-import org.jboss.shamrock.deployment.builditem.FeatureBuildItem;
-import org.jboss.shamrock.runtime.annotations.ConfigGroup;
-import org.jboss.shamrock.runtime.annotations.ConfigItem;
-import org.jboss.shamrock.undertow.ServletBuildItem;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.runtime.annotations.ConfigGroup;
+import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.undertow.ServletBuildItem;
 
 /**
  * Provides a servlet which lists all configured properties.

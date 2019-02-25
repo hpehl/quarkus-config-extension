@@ -19,33 +19,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.shamrock</groupId>
-        <artifactId>shamrock-config</artifactId>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-config</artifactId>
         <version>1.0.0.Alpha1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>shamrock-config-deployment</artifactId>
-    <name>Shamrock - Config - Deployment</name>
+    <artifactId>quarkus-config-deployment</artifactId>
+    <name>Quarkus - Config - Deployment</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-core-deployment</artifactId>
-            <version>${shamrock.version}</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-arc-deployment</artifactId>
-            <version>${shamrock.version}</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc-deployment</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-undertow-deployment</artifactId>
-            <version>${shamrock.version}</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow-deployment</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.shamrock</groupId>
-            <artifactId>shamrock-config-runtime</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-config-runtime</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -57,9 +57,9 @@
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.jboss.shamrock</groupId>
-                            <artifactId>shamrock-extension-processor</artifactId>
-                            <version>${shamrock.version}</version>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-extension-processor</artifactId>
+                            <version>${quarkus.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
