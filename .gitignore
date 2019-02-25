@@ -8,6 +8,7 @@
 *.tar.gz
 *.war
 *.zip
+.DS_Store
 .idea
 hs_err_pid*
 target
