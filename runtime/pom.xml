@@ -20,19 +20,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.quarkus</groupId>
-        <artifactId>quarkus-config</artifactId>
-        <version>1.0.0.Alpha1-SNAPSHOT</version>
+        <artifactId>quarkus-config-parent</artifactId>
+        <version>0.11.0</version>
     </parent>
 
     <artifactId>quarkus-config-runtime</artifactId>
     <name>Quarkus - Config - Runtime</name>
 
     <dependencies>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-core-runtime</artifactId>
-            <version>${quarkus.version}</version>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-undertow-runtime</artifactId>

@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.quarkus.config;
+package io.quarkus.config.deployment;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
+
 import java.util.List;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.config.runtime.ConfigServlet;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.undertow.ServletBuildItem;
+import io.quarkus.runtime.annotations.ConfigRoot;
+import io.quarkus.undertow.deployment.ServletBuildItem;
 
 /**
  * Provides a servlet which lists all configured properties.
@@ -32,27 +34,31 @@ import io.quarkus.undertow.ServletBuildItem;
  */
 class ConfigProcessor {
 
-    Config config;
+    /**
+     * The configuration for config extension.
+     */
+    ConfigConfig config;
 
-    @ConfigGroup
-    static final class Config {
-        /** The path of the config servlet. */
+    @ConfigRoot(name = "config")
+    static final class ConfigConfig {
+        /**
+         * The path of the config servlet.
+         */
         @ConfigItem(defaultValue = "/config")
         String path;
     }
 
     @BuildStep
     ServletBuildItem produceServlet() {
-        ServletBuildItem servletBuildItem = new ServletBuildItem("config", ConfigServlet.class.getName());
-        servletBuildItem.getMappings().add(config.path);
+        ServletBuildItem servletBuildItem = ServletBuildItem.builder("config", ConfigServlet.class.getName())
+                .addMapping(config.path)
+                .build();
         return servletBuildItem;
     }
 
     @BuildStep
     List<AdditionalBeanBuildItem> additionalBeans() {
-        return Arrays.asList(
-                new AdditionalBeanBuildItem(Config.class),
-                new AdditionalBeanBuildItem(ConfigServlet.class));
+        return asList(new AdditionalBeanBuildItem(ConfigServlet.class));
     }
 
     @BuildStep
