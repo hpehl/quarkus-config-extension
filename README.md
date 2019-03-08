@@ -34,7 +34,7 @@ A typical output might look like:
 }
 ```
 
-To use the extension in your Quarkus app, add the following dependency to your pom.xml (The config extension is not available in Maven Central. For now you have to clone the repository and install the extension in your local maven repository.)
+To use the extension in your Quarkus app, add the following dependency to your pom.xml (the config extension is not available in Maven Central. For now you have to clone the repository and install the extension in your local maven repository.)
 
 ```xml
 <dependency>
