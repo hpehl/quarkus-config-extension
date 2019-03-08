@@ -41,7 +41,6 @@ public class ConfigProcessor {
      */
     ConfigConfig config;
 
-
     @ConfigRoot(name = "config")
     static final class ConfigConfig {
 

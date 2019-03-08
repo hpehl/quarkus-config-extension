@@ -18,6 +18,7 @@ package io.quarkus.config.runtime;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
@@ -60,6 +61,8 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
  */
 class ConfigDumper {
 
+    private static final Logger log = Logger.getLogger("io.quarkus.config");
+
     JsonObject dump(Config config, JsonBuilderFactory factory) {
         if (config != null) {
             if (config.getConfigSources().iterator().hasNext()) {
@@ -74,7 +77,12 @@ class ConfigDumper {
                         SortedSet<String> sortedPropertyNames = new TreeSet<>(propertyNames);
                         JsonObjectBuilder jsonProperties = factory.createObjectBuilder();
                         for (String propertyName : sortedPropertyNames) {
-                            jsonProperties.add(propertyName, source.getValue(propertyName));
+                            try {
+                                jsonProperties.add(propertyName, source.getValue(propertyName));
+                            } catch (Throwable t) {
+                                log.severe("Cannot get configuration value for '" + propertyName + "': " +
+                                        t.getMessage());
+                            }
                         }
                         jsonSource.add("properties", jsonProperties);
                     }
