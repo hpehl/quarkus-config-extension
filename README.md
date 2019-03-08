@@ -1,6 +1,6 @@
 # Quarkus Config Extension
 
-Adds a servlet to a Quarkus application which lists the configured values for [MicroProfile Configuration](https://microprofile.io/project/eclipse/microprofile-config). The servlet is registered using the path `/config` by default and lists all properties of all config sources. The config sources are sorted descending by ordinal, the properties by name. If no config is defined an empty JSON object is returned. 
+Adds a servlet to a [Quarkus](https://quarkus.io) application which lists the configured values for [MicroProfile Configuration](https://microprofile.io/project/eclipse/microprofile-config). The servlet is registered using the path `/config` by default and lists all properties of all config sources. The config sources are sorted descending by ordinal, the properties by name. If no config is defined an empty JSON object is returned. 
 
 A typical output might look like:
 ```json
@@ -32,4 +32,15 @@ A typical output might look like:
     }
   ]
 }
+```
+
+To use the extension in your Quarkus app, add the following dependency to your pom.xml
+
+```xml
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-config</artifactId>
+    <version>${quarkus.config.version}</version>
+    <scope>provided</scope>
+</dependency>
 ```
