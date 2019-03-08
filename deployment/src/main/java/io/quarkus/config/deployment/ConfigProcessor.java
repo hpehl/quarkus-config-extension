@@ -15,14 +15,13 @@
  */
 package io.quarkus.config.deployment;
 
-import java.util.logging.Logger;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.config.runtime.ConfigServlet;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
+import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.quarkus.undertow.deployment.ServletBuildItem;
@@ -33,8 +32,6 @@ import io.quarkus.undertow.deployment.ServletBuildItem;
  * @author Harald Pehl
  */
 public class ConfigProcessor {
-
-    private static final Logger log = Logger.getLogger("io.quarkus.config");
 
     /**
      * The configuration for config extension.
@@ -49,12 +46,6 @@ public class ConfigProcessor {
          */
         @ConfigItem(defaultValue = "/config")
         String path;
-
-        /**
-         * Whether the servlet is configured in dev mode only.
-         */
-        @ConfigItem(defaultValue = "true")
-        boolean devModeOnly;
     }
 
     @BuildStep
@@ -63,20 +54,7 @@ public class ConfigProcessor {
             BuildProducer<ServletBuildItem> servlets,
             BuildProducer<FeatureBuildItem> feature) {
 
-        boolean useExtension;
-        if (launchMode.getLaunchMode().isDevOrTest()) {
-            useExtension = true;
-        } else {
-            useExtension = !config.devModeOnly;
-            if (useExtension) {
-                log.warning("Config extension was enabled in normal mode! " +
-                        "All configuration will be visible at the /" + config.path + " endpoint. " +
-                        "If that's not what you want, remove 'quarkus.config.dev-mode-only = false' " +
-                        "from your configuration.");
-            }
-        }
-
-        if (useExtension) {
+        if (launchMode.getLaunchMode() == LaunchMode.DEVELOPMENT) {
             beans.produce(new AdditionalBeanBuildItem(ConfigServlet.class));
             servlets.produce(ServletBuildItem.builder("config", ConfigServlet.class.getName())
                     .addMapping(config.path)
