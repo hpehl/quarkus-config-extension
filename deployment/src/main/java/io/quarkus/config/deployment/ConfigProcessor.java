@@ -15,14 +15,14 @@
  */
 package io.quarkus.config.deployment;
 
-import static java.util.Arrays.asList;
-
-import java.util.List;
+import java.util.logging.Logger;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.config.runtime.ConfigServlet;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.quarkus.undertow.deployment.ServletBuildItem;
@@ -32,37 +32,57 @@ import io.quarkus.undertow.deployment.ServletBuildItem;
  *
  * @author Harald Pehl
  */
-class ConfigProcessor {
+public class ConfigProcessor {
+
+    private static final Logger log = Logger.getLogger("io.quarkus.config");
 
     /**
      * The configuration for config extension.
      */
     ConfigConfig config;
 
+
     @ConfigRoot(name = "config")
     static final class ConfigConfig {
+
         /**
          * The path of the config servlet.
          */
         @ConfigItem(defaultValue = "/config")
         String path;
+
+        /**
+         * Whether the servlet is configured in dev mode only.
+         */
+        @ConfigItem(defaultValue = "true")
+        boolean devModeOnly;
     }
 
     @BuildStep
-    ServletBuildItem produceServlet() {
-        ServletBuildItem servletBuildItem = ServletBuildItem.builder("config", ConfigServlet.class.getName())
-                .addMapping(config.path)
-                .build();
-        return servletBuildItem;
-    }
+    public void build(LaunchModeBuildItem launchMode,
+            BuildProducer<AdditionalBeanBuildItem> beans,
+            BuildProducer<ServletBuildItem> servlets,
+            BuildProducer<FeatureBuildItem> feature) {
 
-    @BuildStep
-    List<AdditionalBeanBuildItem> additionalBeans() {
-        return asList(new AdditionalBeanBuildItem(ConfigServlet.class));
-    }
+        boolean useExtension;
+        if (launchMode.getLaunchMode().isDevOrTest()) {
+            useExtension = true;
+        } else {
+            useExtension = !config.devModeOnly;
+            if (useExtension) {
+                log.warning("Config extension was enabled in normal mode! " +
+                        "All configuration will be visible at the /" + config.path + " endpoint. " +
+                        "If that's not what you want, remove 'quarkus.config.dev-mode-only = false' " +
+                        "from your configuration.");
+            }
+        }
 
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem("config");
+        if (useExtension) {
+            beans.produce(new AdditionalBeanBuildItem(ConfigServlet.class));
+            servlets.produce(ServletBuildItem.builder("config", ConfigServlet.class.getName())
+                    .addMapping(config.path)
+                    .build());
+            feature.produce(new FeatureBuildItem("config"));
+        }
     }
 }
