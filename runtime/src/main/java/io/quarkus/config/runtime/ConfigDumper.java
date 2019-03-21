@@ -56,8 +56,6 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
  *   ]
  * }
  * </pre>
- *
- * @author Harald Pehl
  */
 class ConfigDumper {
 

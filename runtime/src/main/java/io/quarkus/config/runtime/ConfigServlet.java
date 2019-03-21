@@ -71,8 +71,6 @@ import org.eclipse.microprofile.config.Config;
  *   ]
  * }
  * </pre>
- *
- * @author Harald Pehl
  */
 @WebServlet
 public class ConfigServlet extends HttpServlet {

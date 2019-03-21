@@ -26,40 +26,32 @@ import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.quarkus.undertow.deployment.ServletBuildItem;
 
-/**
- * Provides a servlet which lists all configured properties.
- *
- * @author Harald Pehl
- */
+/** Provides a servlet which lists all configured properties. */
 public class ConfigProcessor {
 
-    /**
-     * The configuration for config extension.
-     */
+    /** The configuration for config extension. */
     ConfigConfig config;
 
     @ConfigRoot(name = "config")
     static final class ConfigConfig {
 
-        /**
-         * The path of the config servlet.
-         */
+        /** The path of the config servlet. */
         @ConfigItem(defaultValue = "/config")
         String path;
     }
 
     @BuildStep
     public void build(LaunchModeBuildItem launchMode,
+            BuildProducer<FeatureBuildItem> feature,
             BuildProducer<AdditionalBeanBuildItem> beans,
-            BuildProducer<ServletBuildItem> servlets,
-            BuildProducer<FeatureBuildItem> feature) {
+            BuildProducer<ServletBuildItem> servlets) {
 
         if (launchMode.getLaunchMode() == LaunchMode.DEVELOPMENT) {
+            feature.produce(new FeatureBuildItem("config"));
             beans.produce(new AdditionalBeanBuildItem(ConfigServlet.class));
             servlets.produce(ServletBuildItem.builder("config", ConfigServlet.class.getName())
                     .addMapping(config.path)
                     .build());
-            feature.produce(new FeatureBuildItem("config"));
         }
     }
 }
