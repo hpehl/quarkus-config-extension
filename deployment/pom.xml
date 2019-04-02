@@ -24,24 +24,21 @@
         <version>0.12.0</version>
     </parent>
 
-    <artifactId>quarkus-config</artifactId>
+    <artifactId>quarkus-config-deployment</artifactId>
     <name>Quarkus - Config - Deployment</name>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-            <version>${quarkus.version}</version>
+            <artifactId>quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-undertow</artifactId>
-            <version>${quarkus.version}</version>
+            <artifactId>quarkus-undertow-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-config-runtime</artifactId>
-            <version>${project.version}</version>
+            <artifactId>quarkus-config</artifactId>
         </dependency>
     </dependencies>
 
