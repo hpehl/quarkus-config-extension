@@ -40,7 +40,7 @@ public class ConfigProcessor {
         String path;
     }
 
-    @BuildStep
+    @BuildStep(providesCapabilities = "io.quarkus.config")
     public void build(LaunchModeBuildItem launchMode,
             BuildProducer<FeatureBuildItem> feature,
             BuildProducer<AdditionalBeanBuildItem> beans,
